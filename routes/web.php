@@ -6,4 +6,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get("/journalist", [JournalistController::class, "index"])->name('journalist');
