@@ -15,11 +15,12 @@ Route::get("/", [PageController::class, "index"])->name("index");
 Route::get("/nosotros", [PageController::class, "nosotros"])->name("nosotros");
 
 //Ruta para carta
-
-
-//Ruta para hacer las reservas
-
+Route::get("/carta", [PageController::class, "carta"])->name("carta");
 
 //Ruta para login 
 
 //Ruta para registro 
+Route::middleware(["auth"])->group(function() {
+    //Ruta para hacer las reservas
+
+});
