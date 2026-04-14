@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PlatoController;
+use App\Http\Controllers\ReservaController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,12 +18,11 @@ Route::get("/", [PageController::class, "index"])->name("index");
 Route::get("/nosotros", [PageController::class, "nosotros"])->name("nosotros");
 
 //Ruta para carta
-Route::get("/carta", [PageController::class, "carta"])->name("carta");
+Route::get("/carta", [PlatoController::class, "index"])->name("carta");
+
+//Ruta para reserva
+Route::get("/reserva", [ReservaController::class, "create"])->name("reserva");
 
 //Ruta para login 
 
 //Ruta para registro 
-Route::middleware(["auth"])->group(function() {
-    //Ruta para hacer las reservas
-
-});

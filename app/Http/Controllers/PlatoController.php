@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoriaPlato;
+use App\Models\Plato;
 use Illuminate\Http\Request;
 
-class ReservaController extends Controller
+class PlatoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -12,6 +14,9 @@ class ReservaController extends Controller
     public function index()
     {
         //
+        $platos = Plato::all();
+        $categoria = CategoriaPlato::all();
+        return view("carta", compact('platos', 'categoria'));
     }
 
     /**

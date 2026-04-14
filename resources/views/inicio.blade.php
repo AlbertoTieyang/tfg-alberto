@@ -6,8 +6,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Bar Restaurante Palacios</title>
 </head>
+@include("components.header")
 <body>
-    @include("components.header")
     <h1 class="text-center bg-danger">Bar Restaurante Palacios</h1>
     <div class="container">
         <div class="row">
@@ -25,4 +25,6 @@
         </div>
     </div>
 </body>
+@include("components.footer")
+
 </html>

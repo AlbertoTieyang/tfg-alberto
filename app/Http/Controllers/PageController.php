@@ -15,4 +15,8 @@ class PageController extends Controller
     public function nosotros() {
         return view("nosotros");
     }
+
+    public function carta() {
+        return view("carta");
+    }
 }

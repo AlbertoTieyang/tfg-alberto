@@ -4,16 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Bar Restaurante Palacios</title>
+    <title>Carta - Bar Restaurante Palacios</title>
 </head>
+@include("components.header")
 <body>
-    @include("components.header")
+    <h1 class="text-center">Nuestra carta</h1>
     <div class="container">
         <div class="row">
-            <div class="col-6 align-self-center">
-                <h3>Tus reservas</h3>
+            <div class="col">
+                @foreach ($platos as $plato)
+                <p>{{ $plato->nombre }}</p>
+            
+                @endforeach
             </div>
         </div>
     </div>
 </body>
+@include("components.footer")
 </html>
