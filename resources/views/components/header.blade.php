@@ -18,6 +18,9 @@
           <a class="nav-link" href="{{ route('carta') }}">Carta</a>
         </li>
         <li class="nav-item">
+            <a href="{{ route('register') }}" class="nav-link">Registrarse</a>
+          </li>
+        <li class="nav-item">
           <a href="{{ route('login') }}" class="nav-link">Iniciar sesion</a>
         </li>
       </ul>

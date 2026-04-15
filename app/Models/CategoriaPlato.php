@@ -8,5 +8,5 @@ class CategoriaPlato extends Model
 {
     protected $table = "categoriaPlato";
 
-    protected $fillable = ["id", "categoria"];
+    protected $fillable = ["id", "category"];
 }

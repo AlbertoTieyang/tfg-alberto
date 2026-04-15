@@ -8,7 +8,7 @@ class Alergeno extends Model
 {
     protected $table = "alergenos";
 
-    protected $fillable = ["id", "tipo"];
+    protected $fillable = ["id", "type"];
 
     public function platos(){
         return $this->belongsToMany(Plato::class);

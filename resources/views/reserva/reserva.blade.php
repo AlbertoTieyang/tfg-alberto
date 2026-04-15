@@ -8,6 +8,16 @@
 </head>
 @include("components.header")
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 bg-success">
+                
+            </div>
+            <div class="col-6 bg-danger">
+                <p>esto es la segunda columna</p>
+            </div>
+        </div>
+    </div>
 </body>
     @include("components.footer")
 </html>
