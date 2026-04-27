@@ -10,6 +10,7 @@
 <body>
     <div class="container">
         <div class="row">
+            <form 
             <div class="col-6 bg-success">
                 
             </div>

@@ -9,4 +9,8 @@ class CategoriaPlato extends Model
     protected $table = "categoriaPlato";
 
     protected $fillable = ["id", "category"];
+
+    public function platos() {
+        return $this->hasMany(Plato::class);
+    }
 }
