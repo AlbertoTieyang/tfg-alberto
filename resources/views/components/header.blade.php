@@ -17,12 +17,20 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ route('carta') }}">Carta</a>
         </li>
-        <li class="nav-item">
+        @guest
+          <li class="nav-item">
             <a href="{{ route('register') }}" class="nav-link">Registrarse</a>
           </li>
-        <li class="nav-item">
-          <a href="{{ route('login') }}" class="nav-link">Iniciar sesion</a>
-        </li>
+          <li class="nav-item">
+            <a href="{{ route('login') }}" class="nav-link">Iniciar sesion</a>
+          </li>
+        @endguest
+
+        @auth
+          <li class="nav-item">
+            <a href="{{ route('index') }}" class="nav-link">Cuenta</a>
+          </li>
+        @endauth
       </ul>
     </div>
   </div>

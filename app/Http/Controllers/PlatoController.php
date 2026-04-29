@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alergeno;
 use App\Models\CategoriaPlato;
 use App\Models\Plato;
 use Illuminate\Http\Request;
@@ -25,6 +26,10 @@ class PlatoController extends Controller
     public function create()
     {
         //
+        $categorias = CategoriaPlato::all();
+        $alergenos = Alergeno::all();
+
+        return view('plato.create', compact('categorias','alergenos'));
     }
 
     /**
@@ -33,6 +38,10 @@ class PlatoController extends Controller
     public function store(Request $request)
     {
         //
+
+        $request->validate([
+            
+        ]);
     }
 
     /**
@@ -49,6 +58,9 @@ class PlatoController extends Controller
     public function edit(string $id)
     {
         //
+        $plato = Plato::find($id);
+
+        return view('plato.edit', compact('plato'));
     }
 
     /**
@@ -65,5 +77,10 @@ class PlatoController extends Controller
     public function destroy(string $id)
     {
         //
+        $plato = Plato::find($id);
+        if($plato != null) {
+            Plato::destroy($id);
+        }
+        return redirect()->route('plato.create');
     }
 }

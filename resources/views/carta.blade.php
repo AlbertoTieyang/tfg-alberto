@@ -9,6 +9,9 @@
 @include("components.header")
 <body>
     <h1 class="text-center">Nuestra carta</h1>
+    @auth
+    <button type="button"><a href="{{ route('plato.create') }}">Editar</a></button>
+    @endauth
     <div class="container">
         <div class="row">
             <div class="col">
@@ -17,7 +20,7 @@
             
                 @endforeach
             </div>
-        </div>
+        </div>    
     </div>
 </body>
 @include("components.footer")

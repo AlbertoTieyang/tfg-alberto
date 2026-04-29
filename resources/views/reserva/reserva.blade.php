@@ -10,13 +10,14 @@
 <body>
     <div class="container">
         <div class="row">
-            <form 
-            <div class="col-6 bg-success">
-                
-            </div>
-            <div class="col-6 bg-danger">
-                <p>esto es la segunda columna</p>
-            </div>
+            <form action="reserva.store" method="post">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter surname">    
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </body>
