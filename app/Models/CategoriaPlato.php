@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CategoriaPlato extends Model
 {
-    protected $table = "categoriaPlato";
-
+    protected $table ="categoria_platos";
     protected $fillable = ["id", "categoria"];
 
     public function platos() {

@@ -30,6 +30,9 @@
           <li class="nav-item">
             <a href="{{ route('index') }}" class="nav-link">Cuenta</a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('logout') }}" class="nav-link">Cerrar sesión</a>
+          </li>
         @endauth
       </ul>
     </div>

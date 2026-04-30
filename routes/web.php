@@ -20,12 +20,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get("/carta/crear", [PlatoController::class, "create"])->name("plato.create");
 
     //Ruta para cerrar sesion (no funciona, lo pongo en comentario)(?)
-    /* Route::get('/logout', function () {
+    Route::get('/logout', function () {
         auth()->logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
         return redirect('/')->with('success', 'Sesión cerrada correctamente');
-    })->name('logout'); */
+    })->name('logout');
 });
 
 //Ruta cuando entras a la página

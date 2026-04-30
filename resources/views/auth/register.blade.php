@@ -39,7 +39,6 @@
                             <label for="password_confirmation">Repite la contraseña</label>
                             <input name="password_confirmation" type="password" class="form-control" id="password">
                         </div>
-
                         <button type="submit" class="btn btn-primary">Registrarse</button>
                     </form>
                 </div>

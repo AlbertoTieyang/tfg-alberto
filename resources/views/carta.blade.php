@@ -10,31 +10,58 @@
 <body>
     <h1 class="text-center">Nuestra carta</h1>
     @auth
-    <button type="button"><a href="{{ route('plato.create') }}">Editar</a></button>
+        <button type="button"><a href="{{ route('plato.create') }}">Editar</a></button>
     @endauth
     <div class="container">
         <div class="row">
             <div class="col mb-3">
-                <form action="{{ route('plato.search') }}"></form>
-                <label for="nombre">Nombre</label>
-                <input type="text">
+                <form action="{{ route('carta') }}" method="GET" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" name="nombre" class="form-control" placeholder="Buscar plato..." value="{{ $nombre ?? '' }}">
+                        <select name="categoria_id" class="form-control">
+                            <option value="">Selecciona una categoría</option>
+                            @foreach ($categoria as $cat)
+                                <option value="{{ $cat->id }}"
+                                    @if($categoriaId == $cat->id)
+                                        selected
+                                    @endif>{{ $cat->categoria }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <select name="alergeno_id" class="form-control">
+                            <option value="">Selecciona los alérgenos</option>
+                            @foreach ($alergenos as $ale)
+                                <option value="{{ $ale->id }}"@if ($alergenosId == $ale->id) selected @endif> 
+                                {{ $ale->tipo }}</option>
+                            @endforeach
+                        </select>
+                        <button class="btn btn-primary" type="submit">Buscar</button>
+                    </div>
+                </form>
             </div>
             <div></div>
             @foreach ($platos as $plato)
-            <div class="col-3 mb-3">
-                <div class="card" style="width: 18rem; min-height: 200px;">
-                <img src="" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $plato->nombre }}</h5>
-                    <h6 class="card-subtitle">{{ $plato->precio }}€</h6>
-                    <p class="card-text text-justify">{{ $plato->descripcion }}</p>
-                    @auth
-                    <a href="{{ route('plato.create') }}" class="btn btn-primary">Editar</a>
-                    @endauth
+                <div class="col-3 mb-3">
+                    <div class="card" style="width: 18rem; min-height: 200px;">
+                        <img src="" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $plato->nombre }}</h5>
+                            <h6 class="card-subtitle">{{ $plato->precio }}€ - {{ $plato->categoriaPlato->categoria }}</h6>
+                            <p class="card-text text-justify">{{ $plato->descripcion }}</p>
+                            @auth
+                                <a href="{{ route('plato.create') }}" class="btn btn-primary">Editar</a>
+                            @endauth
+                        </div>
+                        @if ($plato->alergenos->isNotEmpty())
+                            <div class="card-footer">
+                                @foreach ($plato->alergenos as $alergeno)
+                                    {{ $alergeno->tipo }}
+                                @endforeach 
+                            </div>
+                        @endif
+                    </div>  
                 </div>
-                </div>  
-            </div>
-                @endforeach
+            @endforeach
         </div>    
     </div>
 </body>

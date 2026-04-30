@@ -12,13 +12,29 @@ class PlatoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-        $platos = Plato::all();
-        $categoria = CategoriaPlato::all();
-        return view("carta", compact('platos', 'categoria'));
-    }
+public function index(Request $request)
+{
+    $categoria = CategoriaPlato::all();
+    $alergenos = Alergeno::all();
+    $nombre = $request->input('nombre');
+    $categoriaId = $request->input('categoria_id');
+    $alergenosId = $request->input('alergeno_id');
+
+    $platos = Plato::query()
+        ->when($nombre, function ($query, $nombre) {
+            $query->where('nombre', 'like', "%{$nombre}%");
+        })
+        ->when($categoriaId, function ($query, $categoriaId) {
+            $query->where('categoria_plato_id', $categoriaId);
+        })
+        ->when($alergenosId, function($query, $alergenosId) {
+            $query->where('id', '=', $alergenosId);
+        })
+        ->get();
+
+    return view("carta", compact('platos', 'categoria', 'alergenos', 'nombre', 'categoriaId', 'alergenosId'));
+}
+
 
     /**
      * Show the form for creating a new resource.
