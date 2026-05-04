@@ -42,19 +42,19 @@
             <div></div>
             @foreach ($platos as $plato)
                 <div class="col-3 mb-3">
-                    <div class="card" style="width: 18rem; min-height: 200px;">
+                    <div class="card" style="width: 18rem; min-height: 250px; max-height:250px;">
                         <img src="" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ $plato->name }}</h5>
-                            <h6 class="card-subtitle">{{ $plato->price }}€ - {{ $plato->categoriaPlato->category }}</h6>
+                            <h6 class="card-subtitle">{{ $plato->price }}€ - {{ $plato->dishesCategory->category ?? 'No tiene categoria' }}</h6>
                             <p class="card-text text-justify">{{ $plato->description }}</p>
                             @auth
                                 <a href="{{ route('plato.create') }}" class="btn btn-primary">Editar</a>
                             @endauth
                         </div>
-                        @if ($plato->alergenos->isNotEmpty())
+                        @if ($plato->allergens->isNotEmpty())
                             <div class="card-footer">
-                                @foreach ($plato->alergenos as $alergeno)
+                                @foreach ($plato->allergens as $alergeno)
                                     {{ $alergeno->type }}
                                 @endforeach 
                             </div>

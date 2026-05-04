@@ -35,7 +35,7 @@
                     <div class="fomr-group row col-md-6">
                         <label for="categoria">Categoria</label>
                         <select class="form-control">
-                            @foreach ($plato->categoria as $categoria)
+                            @foreach ($plato->dishesCategory as $categoria)
                                 <option>{{ $categoria }}</option>
                             @endforeach
                         </select>

@@ -44,8 +44,9 @@ public function index(Request $request)
         //
         $categorias = DishCategory::all();
         $alergenos = Allergen::all();
+        $platos = Dish::all();
 
-        return view('plato.create', compact('categorias','alergenos'));
+        return view('plato.create', compact('categorias','alergenos', 'platos'));
     }
 
     /**
@@ -74,9 +75,9 @@ public function index(Request $request)
     public function edit(string $id)
     {
         //
-        $plato = Dish::find($id);
+        $platos = Dish::find($id);
 
-        return view('plato.edit', compact('plato'));
+        return view('plato.edit', compact('platos'));
     }
 
     /**
