@@ -15,11 +15,11 @@
                 @method('put')
                 <div class="form-group">
                     <label for="name">Nombre</label>
-                    <input name="name" type="text" class="form-control" id="name" value="{{ $plato->nombre }}">
+                    <input name="name" type="text" class="form-control" id="name" value="{{ $plato->name }}">
                 </div>
                 <div class="form-group">
                     <label for="price">Precio</label>
-                    <input name="price" type="number" class="form-control" id="price" value="{{ $plato->precio }}">
+                    <input name="price" type="number" class="form-control" id="price" value="{{ $plato->name }}">
                 </div>
                 </form>
             </div>

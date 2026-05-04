@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reserva;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
-class ReservaController extends Controller
+class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +21,7 @@ class ReservaController extends Controller
     public function create()
     {
         //
-        $reservas = Reserva::all();
+        $reservas = Book::all();
         return view("reserva.reserva", compact("reservas"));
     }
 

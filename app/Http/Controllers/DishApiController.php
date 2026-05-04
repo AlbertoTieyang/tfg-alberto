@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CategoriaPlato;
-use App\Models\Plato;
+use App\Models\Dish;
+use App\Models\DishCategory;
 use Illuminate\Http\Request;
 
-class PlatoApiController extends Controller
+class DishApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -68,10 +68,10 @@ class PlatoApiController extends Controller
     public function search (Request $request) {
         $buscar = $request->input('buscar');
 
-        $platos = Plato::query()->when($buscar, function ($query, $buscar) {
+        $platos = Dish::query()->when($buscar, function ($query, $buscar) {
             $query->where('nombre', 'like', "%{$buscar}%")->where('descripcion', 'like', "%{$buscar}%");
         })->get();
-        $categoria = CategoriaPlato::all();
+        $categoria = DishCategory::all();
 
         return view("carta", compact('platos', 'categoria', 'buscar'));
     }

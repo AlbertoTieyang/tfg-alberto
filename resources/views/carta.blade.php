@@ -17,8 +17,8 @@
             <div class="col mb-3">
                 <form action="{{ route('carta') }}" method="GET" class="mb-4">
                     <div class="input-group">
-                        <input type="text" name="nombre" class="form-control" placeholder="Buscar plato..." value="{{ $nombre ?? '' }}">
-                        <select name="categoria_id" class="form-control">
+                        <input type="text" name="name" class="form-control" placeholder="Buscar plato..." value="{{ $nombre ?? '' }}">
+                        <select name="category_id" class="form-control">
                             <option value="">Selecciona una categoría</option>
                             @foreach ($categoria as $cat)
                                 <option value="{{ $cat->id }}"
@@ -28,7 +28,7 @@
                                 </option>
                             @endforeach
                         </select>
-                        <select name="alergeno_id" class="form-control">
+                        <select name="allergen_id" class="form-control">
                             <option value="">Selecciona los alérgenos</option>
                             @foreach ($alergenos as $ale)
                                 <option value="{{ $ale->id }}"@if ($alergenosId == $ale->id) selected @endif> 
@@ -45,9 +45,9 @@
                     <div class="card" style="width: 18rem; min-height: 200px;">
                         <img src="" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">{{ $plato->nombre }}</h5>
-                            <h6 class="card-subtitle">{{ $plato->precio }}€ - {{ $plato->categoriaPlato->categoria }}</h6>
-                            <p class="card-text text-justify">{{ $plato->descripcion }}</p>
+                            <h5 class="card-title">{{ $plato->name }}</h5>
+                            <h6 class="card-subtitle">{{ $plato->price }}€ - {{ $plato->categoriaPlato->category }}</h6>
+                            <p class="card-text text-justify">{{ $plato->description }}</p>
                             @auth
                                 <a href="{{ route('plato.create') }}" class="btn btn-primary">Editar</a>
                             @endauth
@@ -55,7 +55,7 @@
                         @if ($plato->alergenos->isNotEmpty())
                             <div class="card-footer">
                                 @foreach ($plato->alergenos as $alergeno)
-                                    {{ $alergeno->tipo }}
+                                    {{ $alergeno->type }}
                                 @endforeach 
                             </div>
                         @endif

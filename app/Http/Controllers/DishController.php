@@ -2,30 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Alergeno;
-use App\Models\CategoriaPlato;
-use App\Models\Plato;
+use App\Models\Allergen;
+use App\Models\Dish;
+use App\Models\DishCategory;
 use Illuminate\Http\Request;
 
-class PlatoController extends Controller
+class DishController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
 public function index(Request $request)
 {
-    $categoria = CategoriaPlato::all();
-    $alergenos = Alergeno::all();
-    $nombre = $request->input('nombre');
-    $categoriaId = $request->input('categoria_id');
-    $alergenosId = $request->input('alergeno_id');
+    $categoria = DishCategory::all();
+    $alergenos = Allergen::all();
+    $nombre = $request->input('name');
+    $categoriaId = $request->input('category_id');
+    $alergenosId = $request->input('allergen_id');
 
-    $platos = Plato::query()
+    $platos = Dish::query()
         ->when($nombre, function ($query, $nombre) {
-            $query->where('nombre', 'like', "%{$nombre}%");
+            $query->where('name', 'like', "%{$nombre}%");
         })
         ->when($categoriaId, function ($query, $categoriaId) {
-            $query->where('categoria_plato_id', $categoriaId);
+            $query->where('dish_category_id', $categoriaId);
         })
         ->when($alergenosId, function($query, $alergenosId) {
             $query->where('id', '=', $alergenosId);
@@ -42,8 +42,8 @@ public function index(Request $request)
     public function create()
     {
         //
-        $categorias = CategoriaPlato::all();
-        $alergenos = Alergeno::all();
+        $categorias = DishCategory::all();
+        $alergenos = Allergen::all();
 
         return view('plato.create', compact('categorias','alergenos'));
     }
@@ -74,7 +74,7 @@ public function index(Request $request)
     public function edit(string $id)
     {
         //
-        $plato = Plato::find($id);
+        $plato = Dish::find($id);
 
         return view('plato.edit', compact('plato'));
     }
@@ -93,9 +93,9 @@ public function index(Request $request)
     public function destroy(string $id)
     {
         //
-        $plato = Plato::find($id);
+        $plato = Dish::find($id);
         if($plato != null) {
-            Plato::destroy($id);
+            Dish::destroy($id);
         }
         return redirect()->route('plato.create');
     }

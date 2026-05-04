@@ -12,6 +12,7 @@
         <div class="row">
             <div class="col-6 align-self-center">
                 <h3>Tus reservas</h3>
+                
             </div>
         </div>
     </div>

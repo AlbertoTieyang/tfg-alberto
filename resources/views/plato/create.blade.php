@@ -15,10 +15,10 @@
             <div class="col-6">
                 @foreach ($platos as $plato)
                     <div class="card" style="width: 18rem;">
-                        <img src="{{ $plato->imagen }}" class="card-img-top" alt="...">
+                        <img src="{{ $plato->image }}" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">{{ $plato->nombre }}</h5>
-                            <p class="card-text">{{ $plato->precio }}.</p>
+                            <h5 class="card-title">{{ $plato->name }}</h5>
+                            <p class="card-text">{{ $plato->price }}.</p>
                             <a href="#" class="btn btn-primary">Editar</a>
                         </div>
                     </div>
