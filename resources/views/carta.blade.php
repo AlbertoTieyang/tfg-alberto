@@ -22,17 +22,16 @@
                             <option value="">Selecciona una categoría</option>
                             @foreach ($category as $cat)
                                 <option value="{{ $cat->id }}"
-                                    @if($categoryId == $cat->id)
-                                        selected
-                                    @endif>{{ $cat->category }}
+                                    @if($categoryId == $cat->id) selected @endif>{{ $cat->category }}
                                 </option>
                             @endforeach
                         </select>
                         <select name="allergen_id" class="form-control">
                             <option value="">Selecciona los alérgenos</option>  
-                            @foreach ($allergens as $ale)
-                                <option value="{{ $ale->id }}"@if ($allergensId == $ale->id) selected @endif> 
-                                {{ $ale->type }}</option>
+                            @foreach ($allergens as $allergen)
+                                <option value="{{ $allergen->id }}"
+                                    @if ($allergensId == $allergen->id) selected @endif>{{ $allergen->type }}
+                                </option>
                             @endforeach
                         </select>
                         <button class="btn btn-primary" type="submit">Buscar</button>
