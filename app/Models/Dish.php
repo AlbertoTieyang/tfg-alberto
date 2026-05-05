@@ -10,7 +10,7 @@ class Dish extends Model
 
     protected $fillable = ["name", "price", "active", "description", "image", "dish_category_id"];
 
-    public function dishesCategory() {
+    public function dishCategory() {
         return $this->belongsTo(DishCategory::class);
     }
 

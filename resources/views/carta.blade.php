@@ -46,7 +46,7 @@
                         <img src="" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ $dish->name }}</h5>
-                            <h6 class="card-subtitle">{{ $dish->price }}€ - {{ $dish->dishesCategory->category ?? 'No tiene categoria' }}</h6>
+                            <h6 class="card-subtitle">{{ $dish->price }}€ - {{ $dish->dishCategory->category ?? 'No tiene categoria' }}</h6>
                             <p class="card-text text-justify">{{ $dish->description }}</p>
                             @auth
                                 <a href="{{ route('plato.create') }}" class="btn btn-primary">Editar</a>

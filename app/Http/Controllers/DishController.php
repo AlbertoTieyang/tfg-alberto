@@ -53,19 +53,21 @@ public function index(Request $request)
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
+{
+    $dish = Dish::create([
+        'name' => $request->input('name'),
+        'price' => $request->input('price'),
+        'active' => $request->has('active'),
+        'description' => $request->input('description'),
+        'image' => $request->input('image'),
+        'dish_category_id' => $request->input('dish_category_id'),
+    ]);
 
-        $request->validate([
-            "name"=>'required',
-            "price" => 'required',
-            "active" => 'required',
-            "description"=>'required',
-            "image" => 'required'
-        ]);
+    $dish->allergens()->attach($request->input('allergens', []));
 
-        
-    }
+    return redirect()->route('plato.create');
+}
+
 
     /**
      * Display the specified resource.
