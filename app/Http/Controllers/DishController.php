@@ -14,25 +14,25 @@ class DishController extends Controller
      */
 public function index(Request $request)
 {
-    $categoria = DishCategory::all();
-    $alergenos = Allergen::all();
-    $nombre = $request->input('name');
-    $categoriaId = $request->input('category_id');
-    $alergenosId = $request->input('allergen_id');
+    $category = DishCategory::all();
+    $allergens = Allergen::all();
+    $name = $request->input('name');
+    $categoryId = $request->input('category_id');
+    $allergensId = $request->input('allergen_id');
 
-    $platos = Dish::query()
-        ->when($nombre, function ($query, $nombre) {
-            $query->where('name', 'like', "%{$nombre}%");
+    $dishes = Dish::query()
+        ->when($name, function ($query, $name) {
+            $query->where('name', 'like', "%{$name}%");
         })
-        ->when($categoriaId, function ($query, $categoriaId) {
-            $query->where('dish_category_id', $categoriaId);
+        ->when($categoryId, function ($query, $categoryId) {
+            $query->where('dish_category_id', $categoryId);
         })
-        ->when($alergenosId, function($query, $alergenosId) {
-            $query->where('id', '=', $alergenosId);
+        ->when($allergensId, function($query, $allergensId) {
+            $query->where('id', '=', $allergensId);
         })
         ->get();
 
-    return view("carta", compact('platos', 'categoria', 'alergenos', 'nombre', 'categoriaId', 'alergenosId'));
+    return view("carta", compact('dishes', 'category', 'allergens', 'name', 'categoryId', 'allergensId'));
 }
 
 
@@ -42,11 +42,11 @@ public function index(Request $request)
     public function create()
     {
         //
-        $categorias = DishCategory::all();
-        $alergenos = Allergen::all();
-        $platos = Dish::all();
+        $categories = DishCategory::all();
+        $allergens = Allergen::all();
+        $dishes = Dish::all();
 
-        return view('plato.create', compact('categorias','alergenos', 'platos'));
+        return view('plato.create', compact('categories','allergens', 'dishes'));
     }
 
     /**
@@ -57,8 +57,14 @@ public function index(Request $request)
         //
 
         $request->validate([
-            
+            "name"=>'required',
+            "price" => 'required',
+            "active" => 'required',
+            "description"=>'required',
+            "image" => 'required'
         ]);
+
+        
     }
 
     /**
@@ -75,7 +81,7 @@ public function index(Request $request)
     public function edit(string $id)
     {
         //
-        $platos = Dish::find($id);
+        $dishes = Dish::find($id);
 
         return view('plato.edit', compact('platos'));
     }

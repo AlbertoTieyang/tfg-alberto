@@ -9,12 +9,18 @@
 @include("components.header")
 <body>
     <div class="container">
-        <div class="row">
+        <div class="row align-content-between">
             <form action="reserva.store" method="post">
                 <div class="col-6">
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter surname">    
+                        <label for="email">Correo</label>
+                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Correo electrónico">    
+                    </div>
+                    <p></p>
+                    <div class="form-group">
+                        <label for="type">Tipo de reserva</label>
+                        <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="table"> Mesa
+                        <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="event"> Evento
                     </div>
                 </div>
             </form>

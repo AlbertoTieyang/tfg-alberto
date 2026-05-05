@@ -22,7 +22,7 @@ Route::middleware(['auth'])->group(function() {
     //Ruta para cerrar sesion (no funciona, lo pongo en comentario)(?)
     
 
-    Route::get("/cuenta", [UserController::class, "index"])->name("cuenta");
+    Route::get("/cuenta", [UserController::class, "show"])->name("cuenta");
 });
 
 //Ruta cuando entras a la página

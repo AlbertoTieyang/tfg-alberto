@@ -13,36 +13,70 @@
     <div class="container">
         <div class="row">
             <div class="col-6">
-                @foreach ($platos as $plato)
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ $plato->image }}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $plato->name }}</h5>
-                            <p class="card-text">{{ $plato->price }}.</p>
-                            <a href="#" class="btn btn-primary">Editar</a>
+                @foreach ($dishes as $dish)
+                        <div class="card mb-3" style="min-height:150px; max-height: 250px;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $dish->name }}</h5>
+                                <h6 class="card-subtitle mb-1">{{ $dish->price }}€ - {{ $dish->dishesCategory->category ?? 'No tiene categoria' }}</h6>
+                                <a href="#" class="btn btn-primary mb-2">Editar</a>
+                                @if ($dish->allergens->isNotEmpty())
+                                    <div class="card-footer">
+                                    @foreach ($dish->allergens as $allergen)
+                                        {{ $allergen->type }}
+                                    @endforeach 
+                                    </div>
+                                @endif
+                            </div>
                         </div>
-                    </div>
                 @endforeach
             </div>
-            <div class="col-6">
+            <div class="col-6 ">
                 <h3 class="text-center">Añade un plato</h3>
                 <form action="{{ route("plato.store") }}" method="POST">
                 <div class="form-row">
-                    <div class="form-group row col-md-6">
-                        <label for="nombre">Nombre</label>
-                        <input name="nombre" type="text" class="form-control" placeholder="Introduce el nombre del plato">
+                    <div class="form-group">
+                        <label for="image" class="form-label">Imagen</label>
+                        <input type="text" class="form-control" id="image" name="image">
                     </div>
-                    <div class="fomr-group row col-md-6">
-                        <label for="categoria">Categoria</label>
+                    <div class="row">
+                        <div class="col">
+                            <label for="name" class="form-label">Nombre</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Introduce el nombre del plato">
+                        </div>
+                        <div class="col">
+                            <label for="price" class="form-label">Precio</label>
+                            <input type="number" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}" placeholder="Introduce el precio del plato">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="category" class="form-label">Categoria</label>
                         <select class="form-control">
-                            @foreach ($plato->dishesCategory as $categoria)
-                                <option>{{ $categoria }}</option>
+                            @foreach ($categories as $category)
+                            <option>{{ $category->category }}</option>
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label class="form-group">Selecciona los alergenos del plato: </label>
+                        @foreach ($allergens as $allergen)
+                        <input type="checkbox" class="form-check-input" id="{{ $allergen->id }}" name="{{ $allergen->type }}">
+                        <label class="form-check-label">{{ $allergen->type }}</label>
+                        @endforeach
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="form-label">Añade una descripción</label>
+                        <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+                    </div>
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="active">¿Activar plato?</label>
+                        <input class="form-check-input" type="checkbox" id="active">
+                    </div>
                 </div>
-                </form>
-            </div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary" type="button">Crear</button>
+                </div>
+            </form>
+        </div>
         </div>
     </div>
 </body>
