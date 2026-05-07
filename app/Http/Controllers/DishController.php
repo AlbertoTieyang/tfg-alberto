@@ -18,21 +18,23 @@ public function index(Request $request)
     $allergens = Allergen::all();
     $name = $request->input('name');
     $categoryId = $request->input('category_id');
-    $allergensId = $request->input('allergen_id');
+    $allergenId = $request->input('allergen_id');
 
-    $dishes = Dish::query()
+    $dishes = Dish::with(['dishCategory', 'allergens'])
         ->when($name, function ($query, $name) {
             $query->where('name', 'like', "%{$name}%");
         })
         ->when($categoryId, function ($query, $categoryId) {
             $query->where('dish_category_id', $categoryId);
         })
-        ->when($allergensId, function($query, $allergensId) {
-            $query->where('id', '=', $allergensId);
+        ->when($allergenId, function ($query, $allergenId) {
+            $query->whereHas('allergens', function ($query) use ($allergenId) {
+                $query->where('allergens.id', $allergenId);
+            });
         })
         ->get();
 
-    return view("carta", compact('dishes', 'category', 'allergens', 'name', 'categoryId', 'allergensId'));
+    return view("carta", compact('dishes', 'category', 'allergens', 'name', 'categoryId', 'allergenId'));
 }
 
 

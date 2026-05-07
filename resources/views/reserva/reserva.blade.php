@@ -6,26 +6,28 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Reserva - Bar Restaurante Palacios</title>
 </head>
-@include("components.header")
-<body>
-    <div class="container">
-        <div class="row align-content-between">
-            <form action="reserva.store" method="post">
-                <div class="col-6">
-                    <div class="form-group">
-                        <label for="email">Correo</label>
-                        <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Correo electrónico">    
+<body class="d-flex flex-column min-vh-100">
+    @include("components.header")
+    <main class="flex-grow-1">
+        <div class="container">
+            <div class="row align-content-between">
+                <form action="reserva.store" method="post">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="email">Correo</label>
+                            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Correo electrónico">    
+                        </div>
+                        <p></p>
+                        <div class="form-group">
+                            <label for="type">Tipo de reserva</label>
+                            <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="table"> Mesa
+                            <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="event"> Evento
+                        </div>
                     </div>
-                    <p></p>
-                    <div class="form-group">
-                        <label for="type">Tipo de reserva</label>
-                        <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="table"> Mesa
-                        <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="event"> Evento
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
-</body>
+    </main>
     @include("components.footer")
+</body>
 </html>
