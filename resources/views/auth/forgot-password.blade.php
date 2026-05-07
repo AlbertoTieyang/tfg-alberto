@@ -13,21 +13,15 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-6">
-                    <form action="{{ route('login.store') }}" method="post">
+                    <form action="{{ route('') }}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter surname">
                             @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
-                        <div class="form-group mb-2">
-                            <label for="password">Password</label>
-                            <input name="password" type="password" class="form-control @error('password') is-invalid @enderror" id="password">
-                            @error('password') <small class="text-danger"> {{ $message }}</small> @enderror
-                        </div>
-                        <button type="submit" class="btn btn-primary">Iniciar sesion</button>
+                        <button type="submit" class="btn btn-primary">Enviar correo</button>
                     </form>
-                    <a href="{{ route('password.request') }}"><p>He olvidado mi contraseña</p></a>
                 </div>
             </div>
         </div>

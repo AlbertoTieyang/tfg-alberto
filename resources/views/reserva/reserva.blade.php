@@ -11,17 +11,21 @@
     <main class="flex-grow-1">
         <div class="container">
             <div class="row align-content-between">
-                <form action="reserva.store" method="post">
+                <form action="{{ route('reserva.store') }}" method="post">
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="email">Correo</label>
+                            <label for="email" class="form-label">Correo</label>
                             <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Correo electrónico">    
                         </div>
                         <p></p>
                         <div class="form-group">
-                            <label for="type">Tipo de reserva</label>
+                            <label for="type" class="form-label">Tipo de reserva</label>
                             <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="table"> Mesa
                             <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="event"> Evento
+                        </div>
+                        <div class="form-group">
+                            <label for="date" class="form-label">Seleccione una fecha para la reserva o evento</label>
+                            <input type="date">
                         </div>
                     </div>
                 </form>
