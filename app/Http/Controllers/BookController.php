@@ -31,6 +31,14 @@ class BookController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'date' => 'required',
+            'people' => 'required|min:1'
+        ]);
+
+        $request = new Book($request->all());
+        $request->save();
+        return redirect()->route('cuenta');
     }
 
     /**

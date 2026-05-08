@@ -31,12 +31,7 @@
             <a href="{{ route('cuenta') }}" class="nav-link">Cuenta</a>
           </li>
           <li class="nav-item">
-            <form method="POST" action="{{ route('logout') }}" class="d-inline">
-            @csrf
-              <button type="submit" class="nav-link btn btn-link p-0">
-                Logout, {{ auth()->user()->name }} {{ auth()->user()->email }}
-              </button>
-            </form>
+            <a href="{{ route('logout') }}" class="nav-link">Cerrar sesión</a>
           </li>
         @endauth
       </ul>

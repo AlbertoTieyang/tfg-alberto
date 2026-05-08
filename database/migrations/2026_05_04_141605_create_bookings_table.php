@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->enum('type', ['table', 'event']);
+            $table->longText('description');
+            $table->integer('people');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

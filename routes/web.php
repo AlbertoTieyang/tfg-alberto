@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -18,6 +19,15 @@ Route::get('/', function () {
 
 //Se supone que es para las rutas de autentificados
 Route::middleware(['auth'])->group(function() {
+
+    //Ruta para cerrar sessión
+    Route::get('/logout', function () {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return redirect('/')->with('success', 'Sesión cerrada correctamente');
+    })->name('logout');
+
     //Ruta para almacenar un plato
     Route::post("/carta", [DishController::class, "store"])->name("plato.store");  
 
