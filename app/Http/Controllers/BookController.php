@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use App\Mail\ReservationConfirmation;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class BookController extends Controller
 {
@@ -22,6 +25,7 @@ class BookController extends Controller
     {
         //
         $reservas = Book::all();
+        
         return view("reserva.reserva", compact("reservas"));
     }
 
@@ -31,14 +35,32 @@ class BookController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
-            'date' => 'required',
-            'people' => 'required|min:1'
+        $validated = $request->validate([
+            "email" => ["required", "email"],
+            "date" => ["required", "date", "after_or_equal:today"],
+            "type" => ["required", "in:table,event"],
+            "people" => ["required", "integer", "min:1", "max:50"],
+            "description" => ["nullable", "string", "max:1000"],   
         ]);
 
-        $request = new Book($request->all());
-        $request->save();
-        return redirect()->route('cuenta');
+        $booking = Book::create([
+            "date" => $validated["date"],
+            "type" => $validated["type"],
+            "people" => $validated["people"],
+            "description" => $validated["description"] ?? "",
+            "user_id" => $request->user()->id,
+            "confirmation_token" => Str::random(64),
+            "confirmation_expires_at" => now()->addHour(),
+        ]);
+
+        Mail::to($validated["email"])->send(
+            new ReservationConfirmation($booking)
+);
+
+return redirect()
+    ->route("reserva")
+    ->with("success", "Te hemos enviado un correo para confirmar la reserva.");
+
     }
 
     /**

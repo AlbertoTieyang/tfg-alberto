@@ -25,6 +25,14 @@
                     @else
                         <p>No tienes reservas todavia.</p>
                     @endif
+                    @foreach ($allBookings as $book)
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <p class="mb-1"><strong>Fecha:</strong> {{ $booking->date }}</p>
+                                <p class="mb-0"><strong>Tipo:</strong> {{ $booking->type }}</p>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

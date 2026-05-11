@@ -39,8 +39,9 @@ class UserController extends Controller
     {
         $id = request()->user()->id;
         $bookings = Book::query()->where('user_id', '=', $id)->get();
+        $allBookings = Book::all();
 
-        return view('usuario.index', compact('bookings'));
+        return view('usuario.index', compact('bookings', 'allBookings'));
         
     }
 

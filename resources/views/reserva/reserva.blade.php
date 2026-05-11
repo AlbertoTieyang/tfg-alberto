@@ -15,15 +15,11 @@
                 <div class="col-6">
                 <form action="{{ route('reserva.store') }}" method="post">
                     @csrf
-                        <div class="form-group">
-                            <label for="email" class="form-label">Correo</label>
-                            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Correo electrónico" >    
-                        </div>
                         <p></p>
                         <div class="form-group">
                             <label for="type" class="form-label">Tipo de reserva</label>
-                            <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="table"> Mesa
-                            <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="event"> Evento
+                            <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="table" value="table"> Mesa
+                            <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="event" value="event"> Evento
                         </div>
                         <div class="form-group">
                             <label for="date" class="form-label">Seleccione una fecha para la reserva o evento</label>
