@@ -15,23 +15,39 @@
                 <div class="col-6">
                 <form action="{{ route('reserva.store') }}" method="post">
                     @csrf
+                        <div class="form-group">
+                            <label for="email" class="form-label">Correo electrónico</label>
+                            <input type="email" name="email" type="email" class=" form-control @error('email') is-invalid @enderror" id="email" required value="{{ old('email') }}">
+                            @error("email")
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
                         <p></p>
                         <div class="form-group">
                             <label for="type" class="form-label">Tipo de reserva</label>
                             <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="table" value="table"> Mesa
                             <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="event" value="event"> Evento
+                            @error("radio")
+                                <small class="text-danger d-block">{{ $message }}</small>
+                            @enderror
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-3">
                             <label for="date" class="form-label">Seleccione una fecha para la reserva o evento</label>
-                            <input type="date" name="date" id="date" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="description" class="form-label">Escribe alguna nota que tengamos que tener en cuenta</label>
-                            <textarea id="description" name="description" rows="3"></textarea>
+                            <input type="date" name="date" id="date" class="form-control" required>
+                            @error("date")
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="people" class="form-label">Indica el número de personas en la reserva</label>
                             <input for="people" name="people" type="number" id="people" class="number" min="1" required>
+                            @error("people")
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="form-label">Escribe alguna nota que tengamos que tener en cuenta</label>
+                            <textarea id="description" name="description" rows="3" cols="84"></textarea>
                         </div>
                         <div class="d-grid gap-2">
                             <button class="btn btn-primary" type="submit">Crear</button>

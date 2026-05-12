@@ -13,7 +13,7 @@ class Book extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected function casts(): array
+    protected function casts()
 {
     return [
         "confirmation_expires_at" => "datetime",

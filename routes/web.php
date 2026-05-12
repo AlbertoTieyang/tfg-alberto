@@ -14,96 +14,78 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
-//Se supone que es para las rutas de autentificados
+//Rutas para gente registrada
 Route::middleware(['auth'])->group(function() {
 
-    //Ruta para cerrar sessión
-    Route::get('/logout', function () {
-        Auth::logout();
-        request()->session()->invalidate();
-        request()->session()->regenerateToken();
-        return redirect('/')->with('success', 'Sesión cerrada correctamente');
-    })->name('logout');
+	//Ruta para cerrar sessión
+	Route::get('/logout', function () {
+		Auth::logout();
+		request()->session()->invalidate();
+		request()->session()->regenerateToken();
+		return redirect('/')->with('success', 'Sesión cerrada correctamente');
+	})->name('logout');
 
-    //Ruta para almacenar un plato
-    Route::post("/carta", [DishController::class, "store"])->name("plato.store");  
+	//Ruta para almacenar un plato
+	Route::post("/carta", [DishController::class, "store"])->name("plato.store");
 
-    //Ruta para crear y editar un plato
-    Route::get("/carta/crear", [DishController::class, "create"])->name("plato.create");
+	//Ruta para crear y editar un plato
+	Route::get("/carta/crear", [DishController::class, "create"])->name("plato.create");
 
-    //Ruta de cuenta
-    Route::get("/cuenta", [UserController::class, "show"])->name("cuenta");
+	//Ruta de cuenta
+	Route::get("/cuenta", [UserController::class, "show"])->name("cuenta");
 
-    //Ruta para alamcenar una reserva
-    Route::post("/reserva", [BookController::class, "store"])->name("reserva.store");
+	//Ruta para almacenar una reserva
+	Route::post("/reserva", [BookController::class, "store"])->name("reserva.store");
 
-});
-    
-    //Ruta para enviar link de recuperar contraseña
-    Route::get('/forgot-password', function () {
-        return view('auth.forgot-password');
-    })->middleware('guest')->name('password.request');
-    
-    //Ruta que maneja el formulario de recuperar contraseña
-    Route::post('/forgot-password', function (Request $request) {
-    $request->validate(['email' => 'required|email']);
+	});
 
-    $status = Password::sendResetLink(
-        $request->only('email')
-    );
 
-    return $status === Password::ResetLinkSent
-        ? back()->with(['status' => __($status)])
-        : back()->withErrors(['email' => __($status)]);
-    })->middleware('guest')->name('password.email');
-    
-    //Ruta del formulario de contraseña nueva
-    Route::get('/reset-password/{token}', function (string $token) {
-        return view('auth.reset-password', ['token' => $token]);
-    })->middleware('guest')->name('password.reset');
+//Ruta para enviar link de recuperar contraseña
+Route::get('/forgot-password', function () {
+	return view('auth.forgot-password'); })->middleware('guest')->name('password.request');
 
-    //Ruta que maneja el formulario de contraseña nueva
+//Ruta que maneja el formulario de recuperar contraseña
+Route::post('/forgot-password', function (Request $request) {
+	$request->validate(['email' => 'required|email']);
 
-    Route::post('/reset-password', function (Request $request) {
-    $request->validate([
-        'token' => 'required',
-        'email' => 'required|email',
-        'password' => 'required|min:8|confirmed',
-    ]);
+	$status = Password::sendResetLink($request->only('email'));
 
-    $status = Password::reset(
-        $request->only('email', 'password', 'password_confirmation', 'token'),
-        function (User $user, string $password) {
-            $user->forceFill([
-                'password' => Hash::make($password)
-            ])->setRememberToken(Str::random(60));
+	return $status === Password::ResetLinkSent ? back()->with(['status' => __($status)]) : back()->withErrors(['email' => __($status)]); })->middleware('guest')->name('password.email');
 
-            $user->save();
+//Ruta del formulario de contraseña nueva
+Route::get('/reset-password/{token}', function (string $token) {
+	return view('auth.reset-password', ['token' => $token]); })->middleware('guest')->name('password.reset');
 
-            event(new PasswordReset($user));
-        }
-    );
+//Ruta que maneja el formulario de contraseña nueva
+	Route::post('/reset-password', function (Request $request) {
+	$request->validate([
+		'token' => 'required',
+		'email' => 'required|email',
+		'password' => 'required|min:8|confirmed',
+	]);
 
-    return $status === Password::PasswordReset
-        ? redirect()->route('login')->with('status', __($status))
-        : back()->withErrors(['email' => [__($status)]]);
-    })->middleware('guest')->name('password.update');
-    //Ruta cuando entras a la página
-    Route::get("/", [PageController::class, "index"])->name("index");
-    
-    //Ruta para página nosotros
-Route::get("/nosotros", [PageController::class, "nosotros"])->name("nosotros");
+	$status = Password::reset(
+	$request->only('email', 'password', 'password_confirmation', 'token'),
+
+	function (User $user, string $password) {
+		$user->forceFill(['password' => Hash::make($password)])->setRememberToken(Str::random(60));
+		$user->save();
+		event(new PasswordReset($user));
+	});
+
+	return $status === Password::PasswordReset ? redirect()->route('login')->with('status', __($status)) : back()->withErrors(['email' => [__($status)]]); })->middleware('guest')->name('password.update');
+
+//Ruta cuando entras a la página
+Route::get("/", [PageController::class, "index"])->name("index");
 
 //Ruta para carta
 Route::get("/carta", [DishController::class, "index"])->name("carta");
 
-
 //Ruta para reserva
 Route::get("/reserva", [BookController::class, "create"])->name("reserva");
 
-
-
-
+//Ruta para confirmar reserva por correo
+Route::get("/reserva/confirmar/{token}", [BookController::class, "confirm"])->name("reserva.confirm");

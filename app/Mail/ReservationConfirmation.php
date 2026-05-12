@@ -1,4 +1,5 @@
 <?php 
+namespace App\Mail;
 use App\Models\Book;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -19,8 +20,6 @@ class ReservationConfirmation extends Mailable
 
     public function content(): Content
     {
-        return new Content(
-            view: "emails.reservation-confirmation",
-        );
+        return new Content(view: "mail.reservation-confirmation");
     }
 }

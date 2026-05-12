@@ -23,10 +23,13 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
-        $reservas = Book::all();
-        
-        return view("reserva.reserva", compact("reservas"));
+        //Get confirmed or non-expired bookings
+        $bookings = Book::where(function ($query) {
+            $query->whereNotNull("confirmed_at")
+            ->orWhere("confirmation_expires_at", ">=", now());
+        })->get();
+
+        return view("reserva.reserva", compact("bookings"));
     }
 
     /**
@@ -55,11 +58,11 @@ class BookController extends Controller
 
         Mail::to($validated["email"])->send(
             new ReservationConfirmation($booking)
-);
+        );
 
-return redirect()
-    ->route("reserva")
-    ->with("success", "Te hemos enviado un correo para confirmar la reserva.");
+        return redirect()
+            ->route("reserva")
+            ->with("success", "Te hemos enviado un correo para confirmar la reserva.");
 
     }
 
@@ -94,4 +97,29 @@ return redirect()
     {
         //
     }
+
+    /**
+     * Function to confirm bookings
+     * @param string $token
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function confirm(string $token)
+    {
+    $booking = Book::where("confirmation_token", $token)->firstOrFail();
+    
+    if ($booking->confirmation_expires_at->isPast()) {
+        $booking->delete();
+        
+    return view("reserva.expirada");
+    }
+        
+    $booking->update([
+        "confirmed_at" => now(),
+        "confirmation_token" => null,
+        "confirmation_expires_at" => null,
+    ]);
+            
+        return view("reserva.confirmada");
+    }
+            
 }
