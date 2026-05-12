@@ -9,15 +9,15 @@
 <body class="d-flex flex-column min-vh-100">
     @include("components.header")
     <main class="flex-grow-1">
-        <h2 class="text-center">Inicia sesión</h2>
+        <h2 class="text-center">Recuperar constraseña</h2>
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-6">
-                    <form action="{{ route('') }}" method="post">
+                    <form action="{{ route('password.email') }}" method="post">
                         @csrf
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter surname">
+                        <div class="form-group mb-3">
+                            <label for="email" class="form-label mb2">Correo electrónico</label>
+                            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Correo electrónico">
                             @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar correo</button>
