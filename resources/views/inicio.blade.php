@@ -8,6 +8,11 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
     @include("components.header")
+    @if(session('trespasser'))
+        <div class="alert alert-warning">
+            {{ session('trespasser') }}
+        </div>
+    @endif
     <main class="flex-grow-1">
         <h1 class="text-center bg-danger">Bar Restaurante Palacios</h1>
         <div class="container">

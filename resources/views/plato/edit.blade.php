@@ -6,11 +6,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Editar plato | Bar Restaurante Palacios</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     @include('components.header')
     <main class="flex-grow-1">
         <div class="container">
-            <div class="justify-items-center">
+            <div class="row justify-content-center mt-3">
                 <div class="col-6">
                     <form action="{{ route('plato.update', $dish->id) }}" method="POST">
                         @csrf
@@ -48,10 +48,9 @@
                             <label for="description" class="form-label">Descripción</label>                            
                             <textarea name="description" class="form-control">{{ old('description', $dish->description) }}</textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="active" class="form-label">
-                                <input type="checkbox" name="active" @checked($dish->active)> ¿Activar plato?
-                            </label>
+                        <div class="form-check form-switch">
+                            <label for="active" class="form-check-label">¿Activar plato?</label>
+                            <input class="form-check-input" type="checkbox" name="active" @if($dish->active) checked @endif>
                         </div>
                         <button class="btn btn-primary" type="submit">Guardar cambios</button>
                     </form>

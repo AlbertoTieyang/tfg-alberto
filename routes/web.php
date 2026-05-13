@@ -13,8 +13,27 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-Route::get('/', function () {
-	return view('welcome');
+//Rutas para Admin 
+Route::middleware(['auth', 'checkRole:admin'])->group(function() {
+
+	//Ruta para almacenar un plato
+	Route::post("/carta", [DishController::class, "store"])->name("plato.store");
+	
+	//Ruta para crear y editar un plato
+	Route::get("/carta/crear", [DishController::class, "create"])->name("plato.create");
+
+	//Ruta para editar un plato
+	Route::get('/carta/{id}/editar', [DishController::class, 'edit'])->name('plato.edit');
+	
+	//Ruta para actualizar el plato
+	Route::put('/carta/{id}', [DishController::class, 'update'])->name('plato.update');
+	
+	//Ruta para eliminar un plato
+	Route::delete('/carta/{id}', [DishController::class, 'destroy'])->name('plato.destroy');
+	
+	//Ruta para activar/desactivar un plato
+	Route::put('/carta/{id}/active', [DishController::class, 'active'])->name('plato.active');
+
 });
 
 //Rutas para gente registrada
@@ -28,31 +47,13 @@ Route::middleware(['auth'])->group(function() {
 		return redirect('/')->with('success', 'Sesión cerrada correctamente');
 	})->name('logout');
 
-	//Ruta para almacenar un plato
-	Route::post("/carta", [DishController::class, "store"])->name("plato.store");
-
-	//Ruta para crear y editar un plato
-	Route::get("/carta/crear", [DishController::class, "create"])->name("plato.create");
-
 	//Ruta de cuenta
 	Route::get("/cuenta", [UserController::class, "show"])->name("cuenta");
 
 	//Ruta para almacenar una reserva
 	Route::post("/reserva", [BookController::class, "store"])->name("reserva.store");
 
-	//Ruta para editar un plato
-	Route::get('/carta/{id}/editar', [DishController::class, 'edit'])->name('plato.edit');
-	
-	//Ruta para actualizar el plato
-	Route::put('/carta/{id}', [DishController::class, 'update'])->name('plato.update');
-	
-	//Ruta para eliminar un plato
-	Route::delete('/carta/{id}', [DishController::class, 'destroy'])->name('plato.destroy');
-
-	//Ruta para activar/desactivar un plato
-	Route::put('/carta/{id}/active', [DishController::class, 'active'])->name('plato.active');
-
-	});
+});
 
 
 //Ruta para enviar link de recuperar contraseña
