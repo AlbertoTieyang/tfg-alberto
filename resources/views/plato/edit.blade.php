@@ -3,25 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Editar plato | Bar Restaurante Palacios</title>
 </head>
 <body>
     @include('components.header')
     <main class="flex-grow-1">
         <div class="container">
-            <div class="row aling-items-center">
+            <div class="justify-items-center">
                 <div class="col-6">
-                    <form action="{{ route('plato.update', $plato->id) }}" method="POST">
+                    <form action="{{ route('plato.update', $dish->id) }}" method="POST">
                         @csrf
-                        @method('put')
+                        @method('PUT')
                         <div class="form-group">
-                            <label for="name">Nombre</label>
-                            <input name="name" type="text" class="form-control" id="name" value="{{ $plato->name }}">
+                            <label for="image" class="form-label">Imagen</label>
+                            <input type="text" name="image" class="form-control" value="{{ old('image', $dish->image) }}">
                         </div>
                         <div class="form-group">
-                            <label for="price">Precio</label>
-                            <input name="price" type="number" class="form-control" id="price" value="{{ $plato->name }}">
+                            <label for="name" class="form-label">Nombre</label>
+                            <input type="text" name="name" class="form-control" value="{{ old('name', $dish->name) }}">
                         </div>
+                        <div class="form-group">
+                            <label for="price" class="form-label">Precio</label>
+                            <input type="number" name="price" class="form-control" value="{{ old('price', $dish->price) }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="category" class="form-label">Categoría</label>
+                            <select name="dish_category_id" class="form-control">
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" @selected($dish->dish_category_id == $category->id)>
+                                        {{ $category->category }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="allergens" class="form-label">Alérgenos</label>
+                            @foreach ($allergens as $allergen)
+                                <input type="checkbox" name="allergens[]" value="{{ $allergen->id }}" @checked($dish->allergens->contains($allergen->id))>
+                                <label>{{ $allergen->type }}</label>
+                            @endforeach
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="form-label">Descripción</label>                            
+                            <textarea name="description" class="form-control">{{ old('description', $dish->description) }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="active" class="form-label">
+                                <input type="checkbox" name="active" @checked($dish->active)> ¿Activar plato?
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Guardar cambios</button>
                     </form>
                 </div>
             </div>

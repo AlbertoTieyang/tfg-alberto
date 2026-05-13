@@ -28,8 +28,8 @@
                     @foreach ($allBookings as $book)
                         <div class="card mb-3">
                             <div class="card-body">
-                                <p class="mb-1"><strong>Fecha:</strong> {{ $booking->date }}</p>
-                                <p class="mb-0"><strong>Tipo:</strong> {{ $booking->type }}</p>
+                                <p class="mb-1"><strong>Fecha:</strong> {{ $book->date }}</p>
+                                <p class="mb-0"><strong>Tipo:</strong> {{ $book->type }}</p>
                             </div>
                         </div>
                     @endforeach

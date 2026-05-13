@@ -19,7 +19,18 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $dish->name }}</h5>
                                     <h6 class="card-subtitle mb-1">{{ $dish->price }}€ - {{ $dish->dishCategory->category ?? 'No tiene categoria' }}</h6>
-                                    <a href="#" class="btn btn-primary mb-2">Editar</a>
+                                    <p class="card-text">
+                                        <form action="{{ route('plato.active', $dish->id) }}" method="POST"> 
+                                            @csrf
+                                            @method('PUT')
+                                            <div class="form-check form-switch">
+                                                <input name="active" class="form-check-input" type="checkbox" id="active" @if($dish->active) checked @endif>
+                                                <label class="form-check-label" for="active">Activar/desactivar plato</label>
+                                                <button type="submit" class="btn btn-primary btn-sm">Actualizar</button>
+                                            </div>
+                                        </form>
+                                    </p>
+                                    <a href="{{ route('plato.edit', $dish->id) }}" class="btn btn-primary mb-2">Editar</a>
                                     @if ($dish->allergens->isNotEmpty())
                                         <div class="card-footer">
                                         @foreach ($dish->allergens as $allergen)
@@ -27,6 +38,7 @@
                                         @endforeach 
                                         </div>
                                     @endif
+
                                 </div>
                             </div>
                     @endforeach
@@ -74,7 +86,7 @@
                             <input name="active" class="form-check-input" type="checkbox" id="active">
                         </div>
                     </div>
-                    <div class="d-grid gap-2">
+                    <div class="d-grid gap-2">  
                         <button class="btn btn-primary" type="submit">Crear</button>
                     </div>
                 </form>

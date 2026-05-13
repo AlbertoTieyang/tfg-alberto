@@ -41,26 +41,28 @@
                 </div>
                 <div></div>
                 @foreach ($dishes as $dish)
-                    <div class="col-3 mb-3">
-                        <div class="card" style="width: 18rem; min-height: 250px; max-height:250px;">
-                            <img src="" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $dish->name }}</h5>
-                                <h6 class="card-subtitle">{{ $dish->price }}€ - {{ $dish->dishCategory->category ?? 'No tiene categoria' }}</h6>
-                                <p class="card-text text-justify">{{ $dish->description }}</p>
-                                @auth
-                                    <a href="{{ route('plato.create') }}" class="btn btn-primary">Editar</a>
-                                @endauth
-                            </div>
-                            @if ($dish->allergens->isNotEmpty())
-                                <div class="card-footer">
-                                    @foreach ($dish->allergens as $allergen)
-                                        {{ $allergen->type }}
-                                    @endforeach 
+                    @if ($dish->active)
+                        <div class="col-3 mb-3">
+                            <div class="card" style="width: 18rem; min-height: 250px; max-height:250px;">
+                                <img src="" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $dish->name }}</h5>
+                                    <h6 class="card-subtitle">{{ $dish->price }}€ - {{ $dish->dishCategory->category ?? 'No tiene categoria' }}</h6>
+                                    <p class="card-text text-justify">{{ $dish->description }}</p>
+                                    @auth
+                                        <a href="{{ route('plato.edit', $dish->id) }}" class="btn btn-primary">Editar</a>
+                                    @endauth
                                 </div>
-                            @endif
-                        </div>  
-                    </div>
+                                @if ($dish->allergens->isNotEmpty())
+                                    <div class="card-footer">
+                                        @foreach ($dish->allergens as $allergen)
+                                            {{ $allergen->type }}
+                                        @endforeach 
+                                    </div>
+                                @endif
+                            </div>  
+                        </div>
+                    @endif
                 @endforeach
             </div>    
         </div>

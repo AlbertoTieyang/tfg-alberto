@@ -13,6 +13,11 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-6">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                 <form action="{{ route('reserva.store') }}" method="post">
                     @csrf
                         <div class="form-group">

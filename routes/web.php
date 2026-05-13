@@ -40,6 +40,18 @@ Route::middleware(['auth'])->group(function() {
 	//Ruta para almacenar una reserva
 	Route::post("/reserva", [BookController::class, "store"])->name("reserva.store");
 
+	//Ruta para editar un plato
+	Route::get('/carta/{id}/editar', [DishController::class, 'edit'])->name('plato.edit');
+	
+	//Ruta para actualizar el plato
+	Route::put('/carta/{id}', [DishController::class, 'update'])->name('plato.update');
+	
+	//Ruta para eliminar un plato
+	Route::delete('/carta/{id}', [DishController::class, 'destroy'])->name('plato.destroy');
+
+	//Ruta para activar/desactivar un plato
+	Route::put('/carta/{id}/active', [DishController::class, 'active'])->name('plato.active');
+
 	});
 
 
@@ -60,7 +72,7 @@ Route::get('/reset-password/{token}', function (string $token) {
 	return view('auth.reset-password', ['token' => $token]); })->middleware('guest')->name('password.reset');
 
 //Ruta que maneja el formulario de contraseña nueva
-	Route::post('/reset-password', function (Request $request) {
+Route::post('/reset-password', function (Request $request) {
 	$request->validate([
 		'token' => 'required',
 		'email' => 'required|email',
