@@ -113,7 +113,7 @@ public function index(Request $request)
         //mira los alergenos que ya hay y los sincroniza con el formulario
         $dish->allergens()->sync($request->input('allergens', []));
 
-        return redirect()->route('plato.create');
+        return redirect()->route('carta');
 
 
     }
@@ -138,6 +138,6 @@ public function index(Request $request)
             'active' => $request->has('active')
         ]);
 
-        return redirect()->route('plato.create');
+        return redirect()->route('carta');
     }
 }

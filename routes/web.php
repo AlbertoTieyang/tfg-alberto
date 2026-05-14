@@ -50,8 +50,8 @@ Route::middleware(['auth'])->group(function() {
 	//Ruta de cuenta
 	Route::get("/cuenta", [UserController::class, "show"])->name("cuenta");
 
-	//Ruta para almacenar una reserva
-	Route::post("/reserva", [BookController::class, "store"])->name("reserva.store");
+	//Ruta para cancelar 
+	Route::delete("/cuenta/eliminar/{id}", [BookController::class, 'destroy'])->name('book.destroy');
 
 });
 
@@ -99,6 +99,9 @@ Route::get("/carta", [DishController::class, "index"])->name("carta");
 
 //Ruta para reserva
 Route::get("/reserva", [BookController::class, "create"])->name("reserva");
+
+//Ruta para almacenar una reserva. Está fuera de auth, porque quiero que me envía al formulario de registro y de un mensaje
+Route::post("/reserva", [BookController::class, "store"])->name("reserva.store");
 
 //Ruta para confirmar reserva por correo
 Route::get("/reserva/confirmar/{token}", [BookController::class, "confirm"])->name("reserva.confirm");

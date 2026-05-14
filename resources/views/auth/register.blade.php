@@ -13,6 +13,11 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-6">
+                    @if (session('no-user'))
+                        <div class="alert alert-warning">
+                            {{ session('no-user') }}
+                        </div>
+                    @endif
                     <form action="{{ route('register.store') }}" method="post">
                         @csrf
                         <div class="form-group">
@@ -22,7 +27,7 @@
                         </div>
                         <div class="form-group">
                             <label for="email">Correo electrónico</label>
-                            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Enter surname" value="{{ old('email') }}">
+                            <input name="email" type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Correo electrónico" value="{{ old('email') }}">
                             @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
                         <div class="form-group">
@@ -34,8 +39,9 @@
                             <label for="password_confirmation">Repite la contraseña</label>
                             <input name="password_confirmation" type="password" class="form-control" id="password">
                         </div>
-                        <button type="submit" class="btn btn-primary">Registrarse</button>
+                        <button type="submit" class="btn btn-primary btn end-0">Registrarse</button>
                     </form>
+                    <a href="{{ route('login') }}">Tengo ya una cuenta</a>
                 </div>        
             </div>
         </div>

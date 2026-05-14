@@ -8,8 +8,14 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
     @include('components.header')
-    <h1>Reserva confirmada</h1>
-    <p><a href="{{ route('cuenta') }}">Volver a mi cuenta</a></p>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <h1>Reserva confirmada</h1>
+                <p><a href="{{ route('cuenta') }}">Volver a mi cuenta</a></p>
+            </div>
+        </div>
+    </div>
     @include('components.footer')
 </body>
 </html>

@@ -37,13 +37,16 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        if (!$request->user()) {
+            return redirect()->route("register")->with("no-user", "Para crear una reserva necesitas registrarte o iniciar sesión primero.");
+        }
         //
         $validated = $request->validate([
             "email" => ["required", "email"],
             "date" => ["required", "date", "after_or_equal:today"],
             "type" => ["required", "in:table,event"],
             "people" => ["required", "integer", "min:1", "max:50"],
-            "description" => ["nullable", "string", "max:1000"],   
+            "description" => ["nullable", "string", "max:256"],   
         ]);
 
         $booking = Book::create([
@@ -96,6 +99,12 @@ class BookController extends Controller
     public function destroy(string $id)
     {
         //
+        
+        $book = Book::find($id);
+        if($book != null) {
+            Book::destroy($id);
+        }
+        return redirect()->route('cuenta')->with('cancelled', 'Se ha cancelado la reserva');
     }
 
     /**
