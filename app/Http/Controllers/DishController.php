@@ -28,7 +28,7 @@ public function index(Request $request)
             $query->where('dish_category_id', $categoryId);
         })
         ->when($allergenId, function ($query, $allergenId) {
-            $query->whereHas('allergens', function ($query) use ($allergenId) {
+            $query->whereDoesntHave('allergens', function ($query) use ($allergenId) {
                 $query->where('allergens.id', $allergenId);
             });
         })
