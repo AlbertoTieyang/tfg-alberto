@@ -17,33 +17,40 @@
                         <button type="button"><a href="{{ route('plato.create') }}">Crear</a></button>
                     @endif
                     <form action="{{ route('carta') }}" method="GET" class="mb-4">
-                        <div class="input-group">
-                            <input type="text" name="name" class="form-control" placeholder="Buscar plato..." value="{{ $name ?? '' }}">
-                            <select name="category_id" class="form-control">
-                                <option value="">Selecciona una categoría</option>
-                                @foreach ($category as $cat)
-                                    <option value="{{ $cat->id }}"
-                                        @if($categoryId == $cat->id) selected @endif>{{ $cat->category }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <select name="allergen_id" class="form-control">
-                                <option value="">Selecciona los alérgenos</option>  
-                                @foreach ($allergens as $allergen)
-                                    <option value="{{ $allergen->id }}"
-                                        @if ($allergenId == $allergen->id) selected @endif>{{ $allergen->type }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <button class="btn btn-primary" type="submit">Buscar</button>
+                        <div class="row g-2">
+                            <div class="col-12 col-lg">
+                                <input type="text" name="name" class="form-control" placeholder="Buscar plato..." value="{{ $name ?? '' }}">
+                            </div>
+                            <div class="col-12 col-md-6 col-lg">
+                                <select name="category_id" class="form-control">
+                                    <option value="">Selecciona una categoría</option>
+                                    @foreach ($category as $cat)
+                                        <option value="{{ $cat->id }}"
+                                            @if($categoryId == $cat->id) selected @endif>{{ $cat->category }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg">
+                                <select name="allergen_id" class="form-control">
+                                    <option value="">Selecciona los alérgenos</option>  
+                                    @foreach ($allergens as $allergen)
+                                        <option value="{{ $allergen->id }}"
+                                            @if ($allergenId == $allergen->id) selected @endif>{{ $allergen->type }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-12 col-lg-auto d-grid">
+                                <button class="btn btn-primary" type="submit">Buscar</button>
+                            </div>
                         </div>
                     </form>
                 </div>
-                <div></div>
                 @foreach ($dishes as $dish)
                     @if ($dish->active)
-                        <div class="col-3 mb-3">
-                            <div class="card" style="width: 18rem; min-height: 250px; max-height:250px;">
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3 p-3">
+                            <div class="card h-100 dish-card" style="width: 18rem; min-height: 250px; max-height:250px;">
                                 <img src="" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $dish->name }}</h5>

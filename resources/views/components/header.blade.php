@@ -43,3 +43,14 @@
     </div>
   </nav>
 </header>
+/**Esto se ha puesto para que al desplegarlo funcione, no sé porque en local funciona sin esto pero desplegado no  */
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.querySelector('.navbar-toggler');
+  const menu = document.getElementById('menuNav');
+
+  btn?.addEventListener('click', () => {
+    menu.classList.toggle('show');
+  });
+});
+</script>

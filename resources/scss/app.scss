@@ -3,3 +3,63 @@ $secondary: #6B3338;
 $danger: #e63946;
 
 @import "bootstrap/scss/bootstrap";
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+}
+
+main {
+    flex: 1 0 auto;
+    min-width: 0;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+
+img,
+iframe {
+    max-width: 100%;
+}
+
+.card {
+    overflow-wrap: anywhere;
+}
+
+.dish-card .card-img-top {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.allergens-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem 1rem;
+}
+
+.allergens-list > label {
+    flex-basis: 100%;
+}
+
+@media (max-width: 575.98px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .navbar-brand {
+        max-width: 75%;
+        white-space: normal;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}
