@@ -56,12 +56,17 @@ public function index(Request $request)
      */
     public function store(Request $request)
 {
+    $request->validate([
+        'image' => ['required', 'image', 'max:2048'],
+    ]);
+
+    $imagePath = $request->file('image')->store('dishes', 'public');
     $dish = Dish::create([
         'name' => $request->input('name'),
         'price' => $request->input('price'),
         'active' => $request->has('active'),
         'description' => $request->input('description'),
-        'image' => $request->input('image'),
+        'image' => $imagePath,
         'dish_category_id' => $request->input('dish_category_id'),
     ]);
 
@@ -98,7 +103,11 @@ public function index(Request $request)
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            'image' => ['required', 'image', 'max:2048'],
+        ]);
 
+        $imagePath = $request->file('image')->store('dishes', 'public');
         $dish = Dish::find($id);
 
         $dish->update([
@@ -106,7 +115,7 @@ public function index(Request $request)
             'price' => $request->input('price'),
             'active' => $request->has('active'),
             'description' => $request->input('description'),
-            'image' => $request->input('image'),
+            'image' => $imagePath,
             'dish_category_id' => $request->input('dish_category_id'),
         ]);
 

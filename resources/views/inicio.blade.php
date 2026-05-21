@@ -14,7 +14,7 @@
         </div>
     @endif
     <main class="flex-grow-1">
-        <h1 class="text-center bg-danger">Bar Restaurante Palacios</h1>
+        <h1 class="text-center bg-danger p-4">Bar Restaurante Palacios</h1>
         <div class="container">
             <div class="row">
                 <div class="col">
@@ -23,7 +23,7 @@
             </div>
             <div class="row">
                     <div class="col-7">
-                        <iframe src="https://share.google/r02iOyVWoJxP6xjBt" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe src="https://www.google.com/maps?q=Palacios%20Cafeter%C3%ADa%20Restaurante%20Federico%20Mayo%2034&output=embed" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"> </iframe>
                     </div>
                 <div class="col-3 text-start align-self-center">
                     <p>Visítanos en la calle de Federico Mayo, 34, Bajo Restaurante</p>

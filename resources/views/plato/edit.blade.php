@@ -12,13 +12,14 @@
         <div class="container">
             <div class="row justify-content-center mt-3">
                 <div class="col-6">
-                    <form action="{{ route('plato.update', $dish->id) }}" method="POST">
+                    <form action="{{ route('plato.update', $dish->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <div class="form-group">
-                            <label for="image" class="form-label">Imagen</label>
-                            <input type="text" name="image" class="form-control" value="{{ old('image', $dish->image) }}">
-                        </div>
+                        <label for="image" class="form-label"></label>
+                            @if($dish->image)
+                                <img src="{{ asset('storage/' . $dish->image) }}" alt="{{ $dish->name }}" class="img-fluid mb-2">
+                            @endif
+                            <input type="file" name="image" class="form-control" accept="image/*">
                         <div class="form-group">
                             <label for="name" class="form-label">Nombre</label>
                             <input type="text" name="name" class="form-control" value="{{ old('name', $dish->name) }}">
