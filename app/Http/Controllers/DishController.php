@@ -57,10 +57,19 @@ public function index(Request $request)
     public function store(Request $request)
 {
     $request->validate([
-        'image' => ['required', 'image', 'max:2048'],
+        'name' => ['required', 'string', 'max:255'],
+        'price' => ['required', 'min:0'],
+        'description' => ['required', 'string'],
+        'dish_category_id' => ['required', 'exists:dish_categories,id'],
+        'allergens' => ['nullable', 'array'],
+        'allergens.*' => ['exists:allergens,id'],
+        'image' => ['nullable', 'image', 'max:2048'],
     ]);
 
-    $imagePath = $request->file('image')->store('dishes', 'public');
+    $imagePath = $request->hasFile('image')
+        ? $request->file('image')->store('dishes', 'public')
+        : '';
+
     $dish = Dish::create([
         'name' => $request->input('name'),
         'price' => $request->input('price'),
@@ -103,21 +112,31 @@ public function index(Request $request)
     public function update(Request $request, string $id)
     {
         //
+        $dish = Dish::findOrFail($id);
+
         $request->validate([
-            'image' => ['required', 'image', 'max:2048'],
+            'name' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'numeric', 'min:0'],
+            'description' => ['required', 'string'],
+            'dish_category_id' => ['required', 'exists:dish_categories,id'],
+            'allergens' => ['nullable', 'array'],
+            'allergens.*' => ['exists:allergens,id'],
+            'image' => ['nullable', 'image', 'max:2048'],
         ]);
 
-        $imagePath = $request->file('image')->store('dishes', 'public');
-        $dish = Dish::find($id);
-
-        $dish->update([
+        $data = [
             'name' => $request->input('name'),
             'price' => $request->input('price'),
             'active' => $request->has('active'),
             'description' => $request->input('description'),
-            'image' => $imagePath,
             'dish_category_id' => $request->input('dish_category_id'),
-        ]);
+        ];
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('dishes', 'public');
+        }
+
+        $dish->update($data);
 
         //mira los alergenos que ya hay y los sincroniza con el formulario
         $dish->allergens()->sync($request->input('allergens', []));

@@ -12,21 +12,28 @@
         <div class="container">
             <div class="row justify-content-center mt-3">
                 <div class="col-6">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form action="{{ route('plato.update', $dish->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <label for="image" class="form-label"></label>
-                            @if($dish->image)
-                                <img src="{{ asset('storage/' . $dish->image) }}" alt="{{ $dish->name }}" class="img-fluid mb-2">
-                            @endif
-                            <input type="file" name="image" class="form-control" accept="image/*">
+                            <img src="{{ $dish->image ? asset('storage/' . $dish->image) : asset('images/unnamed.jpg') }}" alt="{{ $dish->name }}" class="img-fluid mb-2">
+                            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" accept="image/*">
                         <div class="form-group">
                             <label for="name" class="form-label">Nombre</label>
-                            <input type="text" name="name" class="form-control" value="{{ old('name', $dish->name) }}">
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $dish->name) }}">
                         </div>
                         <div class="form-group">
                             <label for="price" class="form-label">Precio</label>
-                            <input type="number" name="price" class="form-control" value="{{ old('price', $dish->price) }}">
+                            <input type="number" name="price" class="form-control @error('price') is-invalid @enderror" value="{{ old('price', $dish->price) }}">
                         </div>
                         <div class="form-group">
                             <label for="category" class="form-label">Categoría</label>
@@ -47,7 +54,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description" class="form-label">Descripción</label>                            
-                            <textarea name="description" class="form-control">{{ old('description', $dish->description) }}</textarea>
+                            <textarea name="description" class="form-control @error('description') is-invalid @enderror">{{ old('description', $dish->description) }}</textarea>
                         </div>
                         <div class="form-check form-switch">
                             <label for="active" class="form-check-label">¿Activar plato?</label>

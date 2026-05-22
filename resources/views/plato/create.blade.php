@@ -46,11 +46,20 @@
             </div>
             <div class="col-12 col-lg-6 order-1 order-lg-2">
                 <h3 class="text-center mb-3">Añade un plato</h3>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form action="{{ route('plato.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="image" class="form-label">Imagen</label>
-                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                        <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" accept="image/*">
                     </div>
                     <div class="row g-3">
                         <div class="col-12 col-md-6">
@@ -85,7 +94,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Añade una descripción</label>
-                        <textarea name="description" class="form-control" id="description" rows="3"></textarea>
+                        <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="3">{{ old('description') }}</textarea>
                     </div>
                     <div class="form-check form-switch mb-3">
                         <input name="active" class="form-check-input" type="checkbox" id="active_create">

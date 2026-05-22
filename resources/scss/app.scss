@@ -8,6 +8,21 @@ body {
     min-height: 100vh;
     min-height: 100dvh;
     overflow-x: hidden;
+    background-color: #fff;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url('/images/unnamed.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: -1;
 }
 
 main {
@@ -32,6 +47,31 @@ iframe {
 .dish-card .card-img-top {
     aspect-ratio: 4 / 3;
     object-fit: cover;
+}
+
+.dish-card {
+    min-width: 0;
+}
+
+.dish-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.dish-card .card-title,
+.dish-card .card-subtitle,
+.dish-card .card-text,
+.dish-card .card-footer {
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+.dish-card .card-text {
+    flex-grow: 1;
+}
+
+.dish-card .card-footer {
+    background-color: rgba(255, 255, 255, .85);
 }
 
 .form-group {

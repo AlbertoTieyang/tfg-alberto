@@ -9,8 +9,8 @@
 <body class="d-flex flex-column min-vh-100">
     @include("components.header")
     <main class="flex-grow-1">
-        <h1 class="text-center">Nuestra carta</h1>
-        <div class="container">
+        <h1 class="text-center my-4">Nuestra carta</h1>
+        <div class="container pb-5">
             <div class="row">
                 <div class="col-12 mb-4">
                     @if(auth()->check() && auth()->user()->rol_id == 1)
@@ -49,9 +49,9 @@
                 </div>
                 @foreach ($dishes as $dish)
                     @if ($dish->active)
-                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3 p-3">
-                            <div class="card h-100 dish-card" style="width: 18rem; min-height: 250px; max-height:250px;">
-                                <img src="{{ asset('storage/' . $dish->image) }}" class="card-img-top" alt="{{ $dish->name }}">
+                        <div class="col-12 col-sm-6 col-lg-4 col-xl-3 p-3 d-flex">
+                            <div class="card h-100 w-100 dish-card">
+                                <img src="{{ $dish->image ? asset('storage/' . $dish->image) : asset('images/unnamed.jpg') }}" class="card-img-top" alt="{{ $dish->name }}">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $dish->name }}</h5>
                                     <h6 class="card-subtitle">{{ $dish->price }}€ - {{ $dish->dishCategory->category ?? 'No tiene categoria' }}</h6>
