@@ -103,3 +103,18 @@ iframe {
         width: 100%;
     }
 }
+
+#carruselInicio {
+    width: 80%;
+}
+
+#carruselInicio .carousel-inner,
+#carruselInicio .carousel-item {
+    height: 400px;
+}
+
+#carruselInicio .carrusel-img {
+    height: 80%;
+    object-fit: cover;
+    object-position: center;
+}

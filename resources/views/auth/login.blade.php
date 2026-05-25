@@ -8,7 +8,7 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
     @include("components.header")
-    <main class="flex-grow-1">
+    <main class="flex-grow-1 mt-3">
         <h2 class="text-center">Inicia sesión</h2>
         <div class="container">
             <div class="row justify-content-center">

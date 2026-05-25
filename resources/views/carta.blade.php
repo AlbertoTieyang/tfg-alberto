@@ -8,7 +8,7 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
     @include("components.header")
-    <main class="flex-grow-1">
+    <main class="flex-grow-1 mt-3">
         <h1 class="text-center my-4">Nuestra carta</h1>
         <div class="container pb-5">
             <div class="row">

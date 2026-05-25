@@ -8,6 +8,11 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
     @include("components.header")
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <main class="flex-grow-1">
         <h2 class="text-center">Recuperar constraseña</h2>
         <div class="container">

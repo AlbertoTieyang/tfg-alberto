@@ -9,7 +9,7 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
     @include("components.header")
-    <main class="flex-grow-1 py-4">
+    <main class="flex-grow-1 mt-3 py-4">
     <div class="container">
         <div class="row g-4">
             <div class="col-12 col-lg-6 order-2 order-lg-1">    

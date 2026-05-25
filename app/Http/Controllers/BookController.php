@@ -56,7 +56,7 @@ class BookController extends Controller
             "description" => $validated["description"] ?? "",
             "user_id" => $request->user()->id,
             "confirmation_token" => Str::random(64),
-            "confirmation_expires_at" => now()->addHour(),
+            "confirmation_expires_at" => now()->addMinutes(2),
         ]);
 
         Mail::to($validated["email"])->send(
