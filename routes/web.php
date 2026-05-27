@@ -34,6 +34,9 @@ Route::middleware(['auth', 'checkRole:admin'])->group(function() {
 	//Ruta para activar/desactivar un plato
 	Route::put('/carta/{id}/active', [DishController::class, 'active'])->name('plato.active');
 
+	//Ruta para generar una descripcion del plato con IA
+	Route::post('/carta/generar-descripcion', [DishController::class, 'generateDescription'])->name('plato.generate-description');
+
 });
 
 //Rutas para gente registrada
@@ -105,3 +108,6 @@ Route::post("/reserva", [BookController::class, "store"])->name("reserva.store")
 
 //Ruta para confirmar reserva por correo
 Route::get("/reserva/confirmar/{token}", [BookController::class, "confirm"])->name("reserva.confirm");
+
+//Ruta para las rutas que no existen
+Route::fallback(function() { return redirect()->route("index");});

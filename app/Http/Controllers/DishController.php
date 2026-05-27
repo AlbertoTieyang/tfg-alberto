@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Allergen;
 use App\Models\Dish;
 use App\Models\DishCategory;
+use App\Services\MistralService;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Http\Request;
 
 class DishController extends Controller
@@ -58,8 +60,8 @@ public function index(Request $request)
 {
     $request->validate([
         'name' => ['required', 'string', 'max:255'],
-        'price' => ['required', 'min:0'],
-        'description' => ['required', 'string'],
+        'price' => ['required', 'min:0.1'],
+        'description' => ['nullable', 'string'],
         'dish_category_id' => ['required', 'exists:dish_categories,id'],
         'allergens' => ['nullable', 'array'],
         'allergens.*' => ['exists:allergens,id'],
@@ -117,7 +119,7 @@ public function index(Request $request)
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'price' => ['required', 'numeric', 'min:0'],
-            'description' => ['required', 'string'],
+            'description' => ['nullable', 'string'],
             'dish_category_id' => ['required', 'exists:dish_categories,id'],
             'allergens' => ['nullable', 'array'],
             'allergens.*' => ['exists:allergens,id'],
@@ -167,5 +169,30 @@ public function index(Request $request)
         ]);
 
         return redirect()->route('carta');
+    }
+
+    public function generateDescription(Request $request, MistralService $mistral)
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        if (!config('services.mistral.key')) {
+            return response()->json([
+                'message' => 'Falta configurar .env.',
+            ], 500);
+        }
+
+        try {
+            $description = $mistral->generateDishDescription($data['name']);
+        } catch (RequestException $exception) {
+            return response()->json([
+                'message' => 'No se pudo generar la descripcion.',
+            ], 502);
+        }
+
+        return response()->json([
+            'description' => $description,
+        ]);
     }
 }

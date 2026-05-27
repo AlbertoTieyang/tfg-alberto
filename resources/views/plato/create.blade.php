@@ -64,23 +64,23 @@
                     <div class="row g-3">
                         <div class="col-12 col-md-6">
                             <label for="name" class="form-label">Nombre</label>
-                            <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" id="name" placeholder="Introduce el nombre del plato">
+                            <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" id="name" placeholder="Introduce el nombre del plato" required>
                         </div>
                         <div class="col-12 col-md-6">
                             <label for="price" class="form-label">Precio</label>
-                            <input name="price" type="number" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}" id="price" placeholder="Introduce el precio del plato">
+                            <input id="price" name="price" type="number" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}" id="price" placeholder="Introduce el precio del plato" required>
                         </div>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="category" class="form-label">Categoria</label>
-                        <select name="dish_category_id" id="category" class="form-control">
+                        <select name="dish_category_id" id="category" class="form-control" required>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}"> {{ $category->category }} </option>
+                                <option id="cateogry" value="{{ $category->id }}"> {{ $category->category }} </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label d-block"> Selecciona los alérgenos del plato: </label>
+                        <label for="allergens[]" class="form-label d-block"> Selecciona los alérgenos del plato: </label>
                         <div class="row g-2">
                             @foreach ($allergens as $allergen)
                                 <div class="col-12 col-sm-6">
@@ -94,7 +94,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Añade una descripción</label>
-                        <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="3">{{ old('description') }}</textarea>
+                        <button type="button" class="btn btn-outline-primary btn-sm mb-2 js-generate-description" data-url="{{ route('plato.generate-description') }}">Generar con IA</button>
+                        <textarea name="description" class="form-control" id="description" rows="3">{{ old('description') }}</textarea>
                     </div>
                     <div class="form-check form-switch mb-3">
                         <input name="active" class="form-check-input" type="checkbox" id="active_create">

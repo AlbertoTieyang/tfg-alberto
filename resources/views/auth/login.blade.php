@@ -25,7 +25,7 @@
                             <input name="password" type="password" class="form-control @error('password') is-invalid @enderror" id="password">
                             @error('password') <small class="text-danger"> {{ $message }}</small> @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary">Iniciar sesion</button>
+                        <button type="submit" class="btn btn-primary mt-2 mb-3">Iniciar sesion</button>
                     </form>
                     <div class="row">
                         <div class="col">

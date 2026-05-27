@@ -29,7 +29,7 @@
                             <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" accept="image/*">
                         <div class="form-group">
                             <label for="name" class="form-label">Nombre</label>
-                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $dish->name) }}">
+                            <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $dish->name) }}">
                         </div>
                         <div class="form-group">
                             <label for="price" class="form-label">Precio</label>
@@ -54,7 +54,8 @@
                         </div>
                         <div class="form-group">
                             <label for="description" class="form-label">Descripción</label>                            
-                            <textarea name="description" class="form-control @error('description') is-invalid @enderror">{{ old('description', $dish->description) }}</textarea>
+                            <button type="button" class="btn btn-outline-primary btn-sm mb-2 js-generate-description" data-url="{{ route('plato.generate-description') }}">Generar con IA</button>
+                            <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror">{{ old('description', $dish->description) }}</textarea>
                         </div>
                         <div class="form-check form-switch">
                             <label for="active" class="form-check-label">¿Activar plato?</label>

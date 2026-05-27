@@ -39,7 +39,7 @@
                             <label for="password_confirmation">Repite la contraseña</label>
                             <input name="password_confirmation" type="password" class="form-control" id="password">
                         </div>
-                        <button type="submit" class="btn btn-primary btn end-0">Registrarse</button>
+                        <button type="submit" class="btn btn-primary mb-2 mt-2">Registrarse</button>
                     </form>
                     <a href="{{ route('login') }}">Tengo ya una cuenta</a>
                 </div>        

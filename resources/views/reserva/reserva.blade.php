@@ -29,9 +29,15 @@
                         </div>
                         <p></p>
                         <div class="form-group">
-                            <label for="type" class="form-label">Tipo de reserva: </label>
-                            <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="table" value="table"> Mesa
-                            <input name="type" type="radio" class="radio @error('radio') is-invalid @enderror" id="event" value="event"> Evento
+                            <label class="form-label">Tipo de reserva: </label>
+                            <div class="form-check">
+                                <input name="type" type="radio" class="form-check-input @error('radio') is-invalid @enderror" id="table" value="table"> Mesa
+                                <label class="form-check-label" for="table">Mesa</label>
+                            </div>
+                            <div class="form-check">
+                                <input name="type" type="radio" class="form-check-input @error('radio') is-invalid @enderror" id="event" value="event"> Evento
+                                <label class="form-check-label" for="event">Evento</label>
+                            </div>
                             @error("radio")
                                 <small class="text-danger d-block">{{ $message }}</small>
                             @enderror
@@ -45,17 +51,17 @@
                         </div>
                         <div class="form-group">
                             <label for="people" class="form-label">Indica el número de personas en la reserva</label>
-                            <input for="people" name="people" type="number" id="people" class="number" min="1" required>
+                            <input for="people" name="people" type="number" id="people" class="number" min="1" max="25" required>
                             @error("people")
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="description" class="form-label">Escribe alguna nota que tengamos que tener en cuenta</label>
-                            <textarea id="description" name="description" rows="3" cols="84" style="resize: none;"></textarea>
+                            <textarea id="description" name="description" rows="3" style="resize: none;"></textarea>
                         </div>
                         <div class="d-grid gap-2">
-                            <button class="btn btn-primary" type="submit">Crear</button>
+                            <button class="btn btn-primary mb-3" type="submit">Crear</button>
                         </div>
                     </form>
                 </div>
