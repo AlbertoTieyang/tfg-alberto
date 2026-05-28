@@ -63,6 +63,11 @@
                         </div>
                         <button class="btn btn-primary" type="submit">Guardar cambios</button>
                     </form>
+                    <form action="{{ route('plato.destroy', $dish->id) }}" method="post" class="mt-3 mb-3">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
                 </div>
             </div>
         </div>
