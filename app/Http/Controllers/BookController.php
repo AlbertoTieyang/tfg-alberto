@@ -21,8 +21,12 @@ class BookController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
+        if (!$request->user()) {
+            return redirect()->route("register")->with("no-user", "Para crear una reserva necesitas registrarte o iniciar sesión primero.");
+        }
+        
         //Get confirmed or non-expired bookings
         $bookings = Book::where(function ($query) {
             $query->whereNotNull("confirmed_at")

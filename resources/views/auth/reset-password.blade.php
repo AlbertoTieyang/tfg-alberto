@@ -16,7 +16,7 @@
                     <input type="hidden" name="token" value="{{ $token }}">
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input name="email" type="email" class="form-control" id="email" value="{{ request('email') }}" disabled>
+                        <input name="email" type="email" class="form-control" id="email" value="{{ request('email') }}" readonly>
                     </div>
                     <div class="form-group">
                         <label for="password">Nueva contraseña</label>

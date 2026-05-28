@@ -14,7 +14,7 @@ return [
     */
 
     'failed' => 'El correo electrónico o contraseña no coinciden.',
-    'password' => 'The provided password is incorrect.',
+    'password' => 'La contraseña no es correcta.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];

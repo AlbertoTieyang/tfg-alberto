@@ -7,7 +7,12 @@
     <title>Iniciar sesion</title>
 </head>
 <body class="d-flex flex-column min-vh-100">
-    @include("components.header")
+    @include("components.header")ç
+    @if (session('no-user'))
+        <div class="alert alert-success">
+            {{ session('no-user') }}
+        </div>
+    @endif
     <main class="flex-grow-1 mt-3">
         <h2 class="text-center">Inicia sesión</h2>
         <div class="container">

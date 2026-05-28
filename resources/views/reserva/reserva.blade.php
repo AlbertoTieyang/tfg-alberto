@@ -22,10 +22,7 @@
                     @csrf
                         <div class="form-group">
                             <label for="email" class="form-label">Correo electrónico</label>
-                            <input type="email" name="email" type="email" class=" form-control @error('email') is-invalid @enderror" id="email" required>
-                            @error("email")
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
+                            <input type="email" name="email" type="email" class=" form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email', auth()->user()->email) }}" readonly>
                         </div>
                         <p></p>
                         <div class="form-group">
